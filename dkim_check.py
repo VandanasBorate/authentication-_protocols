@@ -9,7 +9,7 @@ def sign_email(email_body, domain, selector, private_key_path):
     headers = [b'from', b'to', b'subject', b'date']
 
     # Read the private key
-    with open(private_key_path, 'rb') as key_file:
+    with open("/home/innuser002/private.key", 'rb') as key_file:
         private_key = key_file.read()
 
     # Generate DKIM signature
@@ -36,7 +36,7 @@ def send_signed_email(signed_email, smtp_server, smtp_port, login_email, login_p
     server.quit()
 
 # Email content
-email_body = b"""From: sender@yourdomain.com
+email_body = """From: sender@yourdomain.com
 To: recipient@example.com
 Subject: Urgent Hiring-Chat Process
 Date: Mon, 29 Aug 2024 12:34:56 -0000
@@ -79,23 +79,26 @@ Skill Seekers Consultancy
 200% Guaranty success
 """
 
+# Convert email body to bytes
+email_body_bytes = email_body.encode('utf-8')
+
 # Sign the email
 signed_email = sign_email(
-    email_body=email_body,
-    domain="yourdomain.com",  # Your domain
-    selector="selector1",      # Your selector
+    email_body=email_body_bytes,
+    domain="https://mail.google.com/",  # Your domain
+    selector="selector1",     # Your selector
     private_key_path="private.key"  # Path to your private key file
 )
 
 # Send the signed email
 send_signed_email(
     signed_email=signed_email,
-    smtp_server="smtp.yourdomain.com",  # Your SMTP server
+    smtp_server="smtp.gmail.com",  # Your SMTP server
     smtp_port=587,                      # SMTP port
-    login_email="your-email@yourdomain.com",  # Your login email
-    login_password="your-password",     # Your email password
-    from_email="sender@yourdomain.com", # Sender email address
-    to_email="recipient@example.com"    # Recipient email address
+    login_email="vandanasborate2193@gmail.com",  # Your login email
+    login_password="qwcu dajw mhcb ypau",     # Your email password
+    from_email="vandanasborate2193@gmail.com", # Sender email address
+    to_email="vandanaborate2193@gmail.com"    # Recipient email address
 )
 
 print("DKIM signed email sent successfully.")
